@@ -1,0 +1,18 @@
+{
+  "name": "budgetify",
+  "version": "1.0.0",
+  "description": "A personal budget app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gerardo Galicia",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0"
+  }
+}
