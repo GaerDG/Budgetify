@@ -39,9 +39,38 @@ body {
     position: relative;
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.budget1 {
+    position: absolute;
+    align-items: center;
+    width: 50%;
+    left: 50%;
+    padding-top: 50px;
+    margin-top: 100px;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+.budget_title1 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
 .budget {
     position: absolute;
-    width: 350px;
+    width: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -176,10 +205,6 @@ body {
 .add__btn:focus { outline: none; }
 
 /***** LISTS *****/
-.container {
-    width: 1000px;
-    margin: 60px auto;
-}
 
 .income {
     float: left;
@@ -275,4 +300,3 @@ h2 {
 
 .unpaid .item__percentage { box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1); }
 .unpaid:hover .item__description { font-weight: 900; }
-

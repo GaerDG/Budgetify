@@ -1,10 +1,12 @@
 // For authentication feature use dotenv
-const sqlite = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3');
 const express = require('express');
+
+const sqlite = sqlite3.verbose();
 
 // Check for let declaration
 // Connecting the database and opening it from memory
-const db = new sqlite.Database('./database/test.db', sqlite.OPEN_READWRITE, (error) => {
+let db = new sqlite.Database('./database/budget.db', sqlite.OPEN_READWRITE, (error) => {
 	if (error) {
 		return console.error(error.message);
 	}
@@ -17,16 +19,19 @@ const db = new sqlite.Database('./database/test.db', sqlite.OPEN_READWRITE, (err
 // sqlite.OPEN_CREATE
 
 // Creating a table
-// db.run('CREATE TABLE langs(name text)');
+// db.run('CREATE TABLE Programing(Langs)');
 
 // Inserting rows
-db.run('INSERT INTO langs(name text) VALUES(?)', ['C#'], (error) => {
+
+/* db.run('INSERT INTO Programing(Langs) VALUES(?)', ['C++'], (error) => {
 	if (error) {
 		return console.log(error.message);
 	}
-	// Getting the last insert idea
-	console.log(`A row has been inserted! The rowid is ${this.lastID}`);
+	// Getting the last insert id
+	console.log(`A row has been inserted! The rowid is ${this.lastID}. Rows inserted: ${this.changes}`);
+	console.log(this.lastID);
 });
+*/
 
 // Closing the database connection
 db.close((error) => {
