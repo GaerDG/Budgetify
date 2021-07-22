@@ -1,0 +1,52 @@
+.item {
+    padding: 12px;
+    border-bottom: 1px solid #e7e7e7;
+    &:first-child { border-top: 1px solid #e7e7e7; }
+    &:nth-child(even) { background-color: #f7f7f7; }
+    &__description {
+        align-items: flex-start;
+    }
+
+    &__value {
+        align-items: flex-end;
+        transition: transform 0.3s;
+    }
+
+    &__right {
+        align-self: flex-start;
+    }
+
+    &__percentage {
+        align-items: flex-start;
+        margin-left: 20px;
+        transition: transform 0.3s;
+        font-size: 11px;
+        background-color: #FFDAD9;
+        padding: 3px;
+        border-radius: 3px;
+        width: 32px;
+        text-align: center;
+    }
+
+    &__delete {
+        align-items: flex-start;
+    }
+
+    &__delete--btn {
+        font-size: 22px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        align-items: flex-end;
+        line-height: 1;
+        display: none;
+    }
+
+    &__delete--btn:focus { outline: none; }
+    &__delete--btn:active { transform: translateY(2px); }
+
+    &:hover &__delete--btn { display: inline-flex; }
+    &:hover &__value { transform: translateX(-10px); }
+    &:hover &__percentage { transform: translateX(-10px); }
+
+}
