@@ -1,35 +1,43 @@
 .item {
+    display: flex;
+    flex-direction: row;
     padding: 12px;
     border-bottom: 1px solid #e7e7e7;
     &:first-child { border-top: 1px solid #e7e7e7; }
     &:nth-child(even) { background-color: #f7f7f7; }
     &__description {
-        align-items: flex-start;
+        width: 50%;
+        margin-right: 10px;
     }
 
     &__value {
-        align-items: flex-end;
         transition: transform 0.3s;
+        margin-right: 5px;
+    }
+
+    &__left {
+        display: flex;
+        justify-content: flex-end;
+        width: 50%;
     }
 
     &__right {
-        align-self: flex-start;
+        display: flex;
+        justify-content: flex-end;
+        width: 45%;
     }
 
     &__percentage {
-        align-items: flex-start;
-        margin-left: 20px;
         transition: transform 0.3s;
         font-size: 11px;
         background-color: #FFDAD9;
         padding: 3px;
         border-radius: 3px;
-        width: 32px;
         text-align: center;
     }
 
     &__delete {
-        align-items: flex-start;
+
     }
 
     &__delete--btn {
@@ -37,7 +45,6 @@
         background: none;
         border: none;
         cursor: pointer;
-        align-items: flex-end;
         line-height: 1;
         display: none;
     }

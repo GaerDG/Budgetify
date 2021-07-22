@@ -24,6 +24,6 @@
 
 .items_container {
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
     width: 100%;
 }

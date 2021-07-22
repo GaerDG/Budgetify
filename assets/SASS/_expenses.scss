@@ -1,5 +1,6 @@
 .expenses {
     width: 50%;
+    height: 100%;
     &__title {
         color: #FF5049;
         text-transform: uppercase;
@@ -16,6 +17,6 @@
     &__list {
         display: flex;
         flex-flow: column wrap;
-        
+
     }
 }

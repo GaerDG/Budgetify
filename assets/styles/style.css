@@ -65,8 +65,8 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 100%;
 }
 
@@ -208,6 +208,7 @@ body {
 
 .income {
   width: 50%;
+  height: 100%;
 }
 .income__title {
   color: #28B9B5;
@@ -232,6 +233,7 @@ body {
 
 .expenses {
   width: 50%;
+  height: 100%;
 }
 .expenses__title {
   color: #FF5049;
@@ -255,6 +257,13 @@ body {
 }
 
 .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   padding: 12px;
   border-bottom: 1px solid #e7e7e7;
 }
@@ -265,28 +274,35 @@ body {
   background-color: #f7f7f7;
 }
 .item__description {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  width: 50%;
+  margin-right: 10px;
 }
 .item__value {
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
   -webkit-transition: -webkit-transform 0.3s;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;
+  margin-right: 5px;
+}
+.item__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 50%;
 }
 .item__right {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 45%;
 }
 .item__percentage {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  margin-left: 20px;
   -webkit-transition: -webkit-transform 0.3s;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
@@ -295,22 +311,13 @@ body {
   background-color: #FFDAD9;
   padding: 3px;
   border-radius: 3px;
-  width: 32px;
   text-align: center;
-}
-.item__delete {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
 }
 .item__delete--btn {
   font-size: 22px;
   background: none;
   border: none;
   cursor: pointer;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
   line-height: 1;
   display: none;
 }
