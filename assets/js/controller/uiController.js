@@ -1,4 +1,3 @@
-// This class doesn't receives args. Is it good to leave it like this?
 class UICtrl {
 
 	constructor () {
@@ -21,7 +20,7 @@ class UICtrl {
 
 	// Num comes from: inputValue
 	// Type comes from: inputType
-	formatNumber ( num, type ) {
+	formatNumber ( num , type ) {
 		/* + or - before a number.
       exactly two decimal points.
       comma format separating the thousands.
@@ -39,9 +38,7 @@ class UICtrl {
 
 		const dec = numSplit[1];
 
-		// type === "expense" ? sign = "-" : sign = "+"; ORIGINAL
-
-		return (type === 'expense' ? '-' : '+') + ' ' + int + '.' + dec; // Compact
+		return (type === 'expense' ? '-' : '+') + ' ' + int + '.' + dec;
 
 	}
 
@@ -54,7 +51,8 @@ class UICtrl {
 
 	getInput() {
 		return {
-			type: document.querySelector(this.DOMstrings.inputType).value,    // Read value. Will be income or expense.
+			// Read value. Will be income or expense.
+			type: document.querySelector(this.DOMstrings.inputType).value,
 			description: document.querySelector(this.DOMstrings.inputDescription).value,
 			value: parseFloat (document.querySelector(this.DOMstrings.inputValue).value)
 		};
@@ -81,7 +79,7 @@ class UICtrl {
 		// Replace the placeholder text with actual data
 		newHtml = html.replace( '%id%', obj.id);
 		newHtml = newHtml.replace( '%description%', obj.description);
-		newHtml = newHtml.replace( '%value%', formatNumber(obj.value, type)); // FormatNumber comes from right at top.
+		newHtml = newHtml.replace( '%value%', this.formatNumber(obj.value, type)); // FormatNumber comes from right at top.
 
 		// Insert HTML into the DOM
 		document.querySelector(element).insertAdjacentHTML( 'beforeend', newHtml);
@@ -97,7 +95,6 @@ class UICtrl {
 	clearFields() {
 
 		const fields = document.querySelectorAll( this.DOMstrings.inputDescription + ',' + this.DOMstrings.inputValue );
-
 		const fieldsArr = Array.prototype.slice.call( fields ); // Converts the list (returned from querySelectorAll) into an array.
 
 		fieldsArr.forEach( function (current, index, array) {
@@ -113,9 +110,9 @@ class UICtrl {
 		obj.budget > 0 ? type = 'income' : type = 'expense';
 
 		// Reading type from DOM
-		document.querySelector(this.DOMstrings.budgetLabel).textContent = formatNumber(obj.budget, type);
-		document.querySelector(this.DOMstrings.incomeLabel).textContent = formatNumber(obj.totalInc, 'income');
-		document.querySelector(this.DOMstrings.expenseLabel).textContent = formatNumber(obj.totalExp, 'expense');
+		document.querySelector(this.DOMstrings.budgetLabel).textContent = this.formatNumber(obj.budget, type);
+		document.querySelector(this.DOMstrings.incomeLabel).textContent = this.formatNumber(obj.totalInc, 'income');
+		document.querySelector(this.DOMstrings.expenseLabel).textContent = this.formatNumber(obj.totalExp, 'expense');
 
 		if ( obj.percentage > 0 ) {
 			document.querySelector(this.DOMstrings.percentageLabel).textContent = obj.percentage + '%';
@@ -128,7 +125,7 @@ class UICtrl {
 
 		const fields = document.querySelectorAll(this.DOMstrings.expensesPercLabel);
 
-		nodeListForEach(fields, function (current, index) {
+		this.nodeListForEach(fields, function (current, index) {
 			if ( percentages[index] > 0 ) {
 				current.textContent = percentages[index] + '%';
 			} else {
@@ -155,7 +152,7 @@ class UICtrl {
                   this.DOMstrings.inputValue
 		);
 
-		nodeListForEach(fields, function(cur) {
+		this.nodeListForEach(fields, function(cur) {
 			cur.classList.toggle('red-focus');
 		});
 
@@ -168,5 +165,3 @@ class UICtrl {
 	}
 
 }
-
-module.exports = UICtrl;

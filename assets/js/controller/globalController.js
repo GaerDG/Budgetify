@@ -1,10 +1,3 @@
-const Budget = require('./budgetController');
-const UICtrl = require('./uiController');
-
-// This is good? Can it be reached from inside the class?
-const budgetCtrl = new Budget();
-const uiCtrl = new UICtrl();
-
 class GlobalController {
 
 	constructor ( budgetCtrl, uiCtrl ) {
@@ -14,8 +7,8 @@ class GlobalController {
 
 	init () {
 		console.log('Application is running.');
-		uiCtrl.displayMonth();
-		uiCtrl.displayBudget({
+		this.uiCtrl.displayMonth();
+		this.uiCtrl.displayBudget({
 			budget: 0,
 			totalInc: 0,
 			totalExp: 0,
@@ -23,67 +16,61 @@ class GlobalController {
 		});
 	}
 
+	saveItem (newItem) {
+		console.log(newItem);
+		fetch('/finance', {
+			method: 'post',
+			headers: { 'Content-Type': 'text/plain' },
+			data: JSON.stringify(newItem)
+		}).then((res) =>{
+			console.log(res);
+		}).catch((err) =>{
+			console.log(err);
+		});
+	}
+
 	setupEventListeners () {
+		// !!!!!!!!!!!!
+		const self = this;
+		const DOM = this.uiCtrl.getDOMstrings();
 
-		// Is the name DOM a bad practice?
-		const DOM = uiCtrl.getDOMstrings();
-
-		document.querySelector(DOM.inputBtn).addEventListener('click', this.ctrlAddItem);
+		document.querySelector(DOM.inputBtn).addEventListener('click', () => { self.ctrlAddItem();} );
 
 		document.addEventListener('keypress', function (event) {
 			// KeyCode for enter = 13
 			if ( event.keyCode === 13 || event.which === 13 ) {
-				this.ctrlAddItem();
+				self.ctrlAddItem();
 			}
 
 		});
 
-		document.querySelector(DOM.container).addEventListener('click', this.ctrlDeleteItem);
-
-		document.querySelector(DOM.inputType).addEventListener('change', uiCtrl.changedType);
+		document.querySelector(DOM.container).addEventListener('click', (event) => {
+			self.ctrlDeleteItem(event);
+		});
+		document.querySelector(DOM.inputType).addEventListener('change', (event) => {
+			self.uiCtrl.changedType();
+		});
 	}
 
-
-	updateBudget() {
-
-		// 1. Calculate the budget
-		budgetCtrl.calculateBudget();
-
-		// 2. Return the budget
-		const budget = budgetCtrl.getBudget();
-
-		// 3. Display the budget on the UI
-		uiCtrl.displayBudget(budget); // !!!!!!!!!!! Careful here
-
-	}
-
-	updatePercentages() {
-
-		// 1. Calculate percentages
-		budgetCtrl.calculatePercentages();
-
-		// 2. Read percentages from the budget controller
-		const percentages = budgetCtrl.getPercentages();
-
-		// 3. Update the UI with the new percentages
-		uiCtrl.displayPercentages( percentages );
-	}
 
 	ctrlAddItem() {
 
 		// 1. Get input data
-		const input = uiCtrl.getinput();
+		const input = this.uiCtrl.getInput();
 
 		if ( input.description !== '' && !isNaN( input.value ) && input.value > 0 ) {
 
 			// 2. Add the item to the budget Controller
-			const newItem = budgetCtrl.addItem( input.type, input.description, input.value );
+			const newItem = this.budgetCtrl.addItem( input.type, input.description, input.value );
+
+			// Sending the new item
+			this.saveItem(newItem);
 
 			// 3. Add the new item to the UI
-			uiCtrl.addListItem( newItem, input.type );
+			this.uiCtrl.addListItem( newItem, input.type );
 
 			// 4. Clear the fields
-			uiCtrl.clearFields();
+			this.uiCtrl.clearFields();
 
 			// 5. Calculate and update budget
 			this.updateBudget();
@@ -105,19 +92,17 @@ class GlobalController {
 			const ID = parseInt ( splitID[1] );
 
 			// 1. Delete the item from the data structure
-			budgetCtrl.deleteItem(type, ID);
+			this.budgetCtrl.deleteItem(type, ID);
 
 			// 2. Delete the item from the UI
-			uiCtrl.deleteListItem(itemID);
+			this.uiCtrl.deleteListItem(itemID);
 
 			// 3. Update and show the new budget
-			updateBudget();
+			this.updateBudget();
 
 			// 4. Calculate and update percentages
-			updatePercentages();
+			this.updatePercentages();
 		}
 	}
 
 }
-
-module.exports = GlobalController;
