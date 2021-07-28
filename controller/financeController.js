@@ -1,37 +1,32 @@
 const express = require('express');
-
+const { PrismaClient } = require('@prisma/client');
 const router = express.Router();
+const prisma = new PrismaClient();
 
-router.get('/', (req, res) => {
-	res.send('Sending a message from the finance controller...');
+// Create item
+/* router.post('/', async (req, res) => {
+
+	const { description, value, type } = req.body;
+	const movements = await prisma.finances.create({
+		data: {
+			description,
+			value,
+			type,
+			date: new Date()
+		},
+	});
+	return res.sendStatus(201);
 });
-
-router.post('/', (req, res) => {
-	console.log(req.body);
-	res.sendStatus(201);
+*/
+// Read item
+/*
+router.get('/', async (req, res) => {
+	const allMovements = await prisma.finances();
+	return res.status(200).json(allMovements);
 });
-
-// Finanzas
-// Need income
-// Need expenses
-// Need price
-
-// Registro
-// Need description
-// Need date
+*/
 
 
-// .add__type (Creates type of transaction)
-// .add__description (Creates description)
-// .add__value (Creates value)
-// .add__btn (Creates income/expense)
-// .item__delete--btn (Deletes item)
-
-// Budget CRUD
-
-// Create (Income/Expense)
-// Read (Income/Expense)
-// Update Budget
 // Delete (Income/Expense)
 
 module.exports = router;
