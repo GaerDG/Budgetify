@@ -101,9 +101,9 @@
         </div>
       </div>
 
-        <script src="./assets/js/controller/uiController.js"></script>
-        <script src="./assets/js/controller/budgetController.js"></script>
-        <script src="./assets/js/controller/globalController.js"></script>
+        <script src="../assets/js/controller/uiController.js"></script>
+        <script src="../assets/js/controller/budgetController.js"></script>
+        <script src="../assets/js/controller/globalController.js"></script>
         <script>
           const uiCtrl = new UICtrl();
           const budgetCtrl = new Budget();
@@ -115,7 +115,7 @@
           // Listening for events
           controller.setupEventListeners();
 
-          // Reading the data. // Fetch
+          // Reading the data
           budgetCtrl.updateBudget();
 
           // Calculating budget
