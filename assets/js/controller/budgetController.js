@@ -78,7 +78,6 @@ class Budget {
 		// ID = last ID + 1
 
 		// Create new ID
-		console.log(data.allItems[type], type);
 		if ( data.allItems[ type ].length > 0 ) {
 			ID = data.allItems[ type ][ data.allItems[ type ].length - 1].id + 1;
 		} else {
