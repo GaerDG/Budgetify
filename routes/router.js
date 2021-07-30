@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 
 
@@ -9,6 +8,12 @@ const router = express.Router();
 // .add__value (Creates value)
 // .add__btn (Creates income/expense)
 // .item__delete--btn (Deletes item)
+
+// Budget CRUD
+// Create (Income/Expense)
+// Read (Income/Expense)
+// Update Budget
+// Delete (Income/Expense)
 
 router
 	.route('/')
