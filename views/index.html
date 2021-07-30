@@ -58,7 +58,7 @@
                   <div class="income__list">
 
                     <div class="items_container">
-                      <!-- It would be nice to add a (...) if the description exceeds n characters -->
+                    <!-- It would be nice to add a (...) if the description exceeds n characters -->
                     <!--
                     <div class="item" id="income-0">
                         <div class="item__description">Prueba</div>
@@ -106,7 +106,7 @@
         <script src="../assets/js/controller/globalController.js"></script>
         <script>
           const uiCtrl = new UICtrl();
-          const budgetCtrl = new Budget();
+          const budgetCtrl = new Budget(uiCtrl);
           const controller = new GlobalController( budgetCtrl, uiCtrl );
 
           // Initializing the app
@@ -117,9 +117,6 @@
 
           // Reading the data
           budgetCtrl.updateBudget();
-
-          // Calculating budget
-          budgetCtrl.getBudget();
 
         </script>
     </body>
