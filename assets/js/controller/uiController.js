@@ -42,9 +42,8 @@ class UICtrl {
 
 	}
 
-	// Callback is an instance for return here?
 	nodeListForEach ( list, callback ) {
-		for ( var i = 0; i < list.length; i++ ) {
+		for ( let i = 0; i < list.length; i++ ) {
 			callback( list[i], i );
 		}
 	}
@@ -108,7 +107,7 @@ class UICtrl {
 	displayBudget( obj ) {
 		let type;
 		obj.budget > 0 ? type = 'income' : type = 'expense';
-
+		
 		// Reading type from DOM
 		document.querySelector(this.DOMstrings.budgetLabel).textContent = this.formatNumber(obj.budget, type);
 		document.querySelector(this.DOMstrings.incomeLabel).textContent = this.formatNumber(obj.totalInc, 'income');
@@ -125,7 +124,7 @@ class UICtrl {
 
 		const fields = document.querySelectorAll(this.DOMstrings.expensesPercLabel);
 
-		this.nodeListForEach(fields, function (current, index) {
+		this.nodeListForEach(fields, (current, index) => {
 			if ( percentages[index] > 0 ) {
 				current.textContent = percentages[index] + '%';
 			} else {

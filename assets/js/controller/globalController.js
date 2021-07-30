@@ -1,3 +1,4 @@
+
 class GlobalController {
 
 	constructor ( budgetCtrl, uiCtrl ) {
@@ -17,20 +18,24 @@ class GlobalController {
 	}
 
 	saveItem (newItem) {
-		console.log(newItem);
 		fetch('/finance', {
-			method: 'post',
-			headers: { 'Content-Type': 'text/plain' },
-			data: JSON.stringify(newItem)
-		}).then((res) =>{
-			console.log(res);
-		}).catch((err) =>{
-			console.log(err);
-		});
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'
+			},
+			body:	JSON.stringify({
+				description: newItem.description,
+				type: newItem.constructor.name.toLowerCase(),
+				value: newItem.value,
+				percentage: newItem.percentage
+			})
+		}).then((res) => res.json())
+			.catch((err) =>{
+				console.log(err);
+			});
 	}
 
 	setupEventListeners () {
-		// !!!!!!!!!!!!
+		// Temporary fix for .this
 		const self = this;
 		const DOM = this.uiCtrl.getDOMstrings();
 
@@ -48,7 +53,7 @@ class GlobalController {
 			self.ctrlDeleteItem(event);
 		});
 		document.querySelector(DOM.inputType).addEventListener('change', (event) => {
-			self.uiCtrl.changedType();
+			self.uiCtrl.changedType(event);
 		});
 	}
 
@@ -73,16 +78,16 @@ class GlobalController {
 			this.uiCtrl.clearFields();
 
 			// 5. Calculate and update budget
-			this.updateBudget();
+			this.budgetCtrl.updateBudget();
 
 			// 6. Calculate and update percentages
-			this.updatePercentages();
+			this.budgetCtrl.updatePercentages();
 		}
 
 	}
 
 	ctrlDeleteItem( event ) {
-		//!!!!!!!!!!!!!!!!!!!! Check for those const declarations: itemID, splitID, type, ID
+		
 		const itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
 		if (itemID) {
@@ -98,10 +103,10 @@ class GlobalController {
 			this.uiCtrl.deleteListItem(itemID);
 
 			// 3. Update and show the new budget
-			this.updateBudget();
+			this.budgetCtrl.updateBudget();
 
 			// 4. Calculate and update percentages
-			this.updatePercentages();
+			this.budgetCtrl.updatePercentages();
 		}
 	}
 

@@ -1,9 +1,3 @@
-// Budget CRUD
-
-// Create (Income/Expense)
-// Read (Income/Expense)
-// Update Budget
-// Delete (Income/Expense)
 class Income {
 	constructor ( id, description, value ) {
 		this.id = id;
@@ -19,31 +13,6 @@ class Expense {
 		this.value = value;
 		this.percentage = -1;
 	}
-}
-
-
-
-class Budget {
-
-	constructor ( id, description, value, percentage ) {
-		this.id = id;
-		this.description = description;
-		this.value = value;
-		this.percentage = -1;
-		this.data = {
-			allItems: {
-				expense: [],
-				income: []
-			},
-			totals: {
-				expense: 0,
-				income: 0
-			},
-			budget: 0,
-			percentage: -1
-		};
-	}
-
 
 	calcPercentage ( totalIncome ) {
 		if ( totalIncome > 0 ) {
@@ -56,14 +25,35 @@ class Budget {
 	getPercentage () {
 		return this.percentage;
 	}
+}
+
+
+
+class Budget {
+
+	constructor ( uiCtrl ) {
+		this.data = {
+			allItems: {
+				expense: [],
+				income: []
+			},
+			totals: {
+				expense: 0,
+				income: 0
+			},
+			budget: 0,
+			percentage: -1
+		};
+		this.uiCtrl = uiCtrl;
+	}
 
 	updatePercentages() {
 
 		// 1. Calculate percentages
-		this.budgetCtrl.calculatePercentages();
+		this.calculatePercentages();
 
 		// 2. Read percentages from the budget controller
-		const percentages = this.budgetCtrl.getPercentages();
+		const percentages = this.getPercentages();
 
 		// 3. Update the UI with the new percentages
 		this.uiCtrl.displayPercentages( percentages );
@@ -73,7 +63,7 @@ class Budget {
 		const data = this.data;
 		let sum = 0;
 
-		data.allItems[type].forEach( function (cur) {
+		data.allItems[type].forEach((cur) => {
 			sum += cur.value;
 		});
 		data.totals[type] = sum;
@@ -115,7 +105,7 @@ class Budget {
 		// Index = 3
 		const data = this.data;
 
-		const ids = data.allItems[type].map( function(current) {
+		const ids = data.allItems[type].map((current) => {
 			return current.id;
 		});
 
@@ -131,8 +121,8 @@ class Budget {
 
 		const data = this.data;
 		// Calculate total income and expenses
-		this.calculateTotal( 'expense');
-		this.calculateTotal( 'income');
+		this.calculateTotal('expense');
+		this.calculateTotal('income');
 
 		// Calculate the budget: income - expenses
 		data.budget = data.totals.income - data.totals.expense;
@@ -148,29 +138,29 @@ class Budget {
 	updateBudget() {
 
 		// 1. Calculate the budget
-		this.budgetCtrl.calculateBudget();
+		this.calculateBudget();
 
 		// 2. Return the budget
-		const budget = this.budgetCtrl.getBudget();
+		const budget = this.getBudget();
 
 		// 3. Display the budget on the UI
-		this.uiCtrl.displayBudget(budget); // !!!!!!!!!!! Careful here
+		this.uiCtrl.displayBudget(budget);
 
 	}
 
 	calculatePercentages() {
 		const data = this.data;
 
-		data.allItems.expense.forEach(function (cur) {
-			cur.calcPercentage( data.totals.income );
+		data.allItems.expense.forEach( (expense) => {
+			expense.calcPercentage( data.totals.income );
 		});
 	}
 
 	getPercentages() {
 		const data = this.data;
 
-		const allPerc = data.allItems.expense.map( function (cur) {
-			return cur.getPercentage();
+		const allPerc = data.allItems.expense.map((expense) => {
+			return expense.getPercentage();
 		});
 		return allPerc;
 	}
@@ -184,12 +174,4 @@ class Budget {
 			percentage: data.percentage
 		};
 	}
-
-	/*
-	testing() {
-		const data = this.data;
-		console.log(data);
-	}
-*/
-
 }
