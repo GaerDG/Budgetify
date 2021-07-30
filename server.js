@@ -1,5 +1,4 @@
 // For authentication feature use dotenv
-const sqlite3 = require('sqlite3');
 const express = require('express');
 const bodyParser = require('body-parser');
 const financeController = require('./controller/financeController');
@@ -25,5 +24,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
 	console.log('Hello! Im listening...');
 });
-
-// Implement REST
